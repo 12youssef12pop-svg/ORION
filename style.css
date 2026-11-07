@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Amiri:wght@400;700&display=swap');
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    background-color: #03070b;
+}
+
+.quran-text {
+    font-family: 'Amiri', serif;
+}
+
+.logo-glow {
+    text-shadow: 0 0 15px rgba(34, 211, 238, 0.4);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #03070b;
+}
+::-webkit-scrollbar-thumb {
+    background: #0e2e47;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #164e63;
+}
