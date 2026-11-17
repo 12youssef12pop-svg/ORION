@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة ORION الدينية</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#030712] text-slate-100 flex flex-col min-h-screen selection:bg-cyan-500 selection:text-slate-950">
+
+    <!-- Header Section -->
+    <header class="w-full bg-[#080e1a]/90 backdrop-blur-xl border-b border-cyan-500/10 py-4 px-6 sticky top-0 z-50 shadow-lg">
+        <div class="max-w-5xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-cyan-500 via-teal-400 to-emerald-400 flex items-center justify-center shadow-lg shadow-cyan-500/20 text-slate-950 text-xl font-bold">
+                    <i class="fa-solid fa-kaaba"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-200">ORION</h1>
+                </div>
+            </div>
+            
+            <div>
+                <span class="text-emerald-400 text-xs sm:text-sm font-medium bg-emerald-500/10 border border-emerald-500/20 px-3.5 py-1.5 rounded-full inline-flex items-center gap-2 shadow-inner">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    إجابات موثوقة وفق الكتاب والسنة
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8 flex flex-col gap-8">
+        
+        <!-- Quranic Verse Display Card -->
+        <div class="w-full relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-amber-500/20 via-yellow-500/10 to-amber-500/20 rounded-3xl blur-xl opacity-70 group-hover:opacity-100 transition duration-700"></div>
+            
+            <div class="relative w-full rounded-3xl bg-gradient-to-b from-[#0b1325] to-[#060a14] border border-amber-500/30 p-6 sm:p-8 text-center shadow-2xl backdrop-blur-xl">
+                <!-- Header of Card -->
+                <div class="flex items-center justify-between mb-6 pb-4 border-b border-amber-500/20 text-amber-400/90 text-xs sm:text-sm font-medium">
+                    <span class="flex items-center gap-2">
+                        <i class="fa-solid fa-book-quran text-amber-400"></i> آية من الذكر الحكيم
+                    </span>
+                </div>
+
+                <!-- Verse Content -->
+                <div class="min-h-[130px] flex flex-col items-center justify-center px-2">
+                    <p id="quranText" class="quran-text text-2xl sm:text-4xl text-amber-100 leading-relaxed font-bold mb-4 transition-all duration-500 drop-shadow-md">
+                        "إِنَّ مَعَ الْعُسْرِ يُسْرًا"
+                    </p>
+                    <p id="quranRef" class="text-amber-400/80 text-sm sm:text-base font-semibold tracking-wide">
+                        [سورة الشرح: 6]
+                    </p>
+                </div>
+
+                <!-- Audio Controls & Next Button -->
+                <div class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-amber-500/20">
+                    <button id="playAudioBtn" class="w-full sm:w-auto flex items-center justify-center gap-2.5 bg-gradient-to-r from-amber-500/20 to-yellow-500/10 hover:from-amber-500/30 hover:to-yellow-500/20 text-amber-300 border border-amber-500/40 px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all shadow-md">
+                        <i id="audioIcon" class="fa-solid fa-volume-high text-amber-400"></i>
+                        <span id="audioStatus">استمع للآية بصوت الشيخ العفاسي</span>
+                    </button>
+                    
+                    <!-- زر الانتقال للآية التالية بدلاً من العد التنازلي -->
+                    <button id="nextAyahBtn" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all shadow-md">
+                        <span>الآية التالية</span>
+                        <i class="fa-solid fa-arrow-left text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search / Question Input Section -->
+        <div class="w-full flex flex-col gap-4">
+            <form id="searchForm" class="relative w-full">
+                <input 
+                    type="text" 
+                    id="searchInput"
+                    placeholder="اكتب سؤالك الديني هنا... (مثلا: ما هي أركان الصلاة؟)" 
+                    class="w-full bg-[#080e1a] border-2 border-cyan-900/50 focus:border-cyan-400 text-slate-100 text-base sm:text-lg rounded-2xl py-4 pr-5 pl-14 outline-none shadow-xl focus:shadow-cyan-500/10 transition-all"
+                    required
+                >
+                <button 
+                    type="submit" 
+                    id="submitBtn"
+                    class="absolute left-2.5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-400 hover:from-cyan-400 hover:to-teal-300 text-slate-950 font-bold flex items-center justify-center transition-all shadow-md hover:scale-105"
+                >
+                    <i class="fa-solid fa-arrow-up text-base"></i>
+                </button>
+            </form>
+
+            <!-- Suggested / Famous Questions -->
+            <div class="w-full">
+                <h3 class="text-slate-400 text-xs sm:text-sm font-semibold mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-fire text-amber-400"></i> أسئلة شائعة:
+                </h3>
+                <div class="flex flex-wrap gap-2" id="popularQuestions">
+                    <button class="q-btn bg-[#080e1a] hover:bg-cyan-950/50 text-slate-300 hover:text-cyan-300 border border-cyan-900/40 px-4 py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-sm">
+                        ما هي أركان الإسلام؟
+                    </button>
+                    <button class="q-btn bg-[#080e1a] hover:bg-cyan-950/50 text-slate-300 hover:text-cyan-300 border border-cyan-900/40 px-4 py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-sm">
+                        كيف أدعو في قيام الليل؟
+                    </button>
+                    <button class="q-btn bg-[#080e1a] hover:bg-cyan-950/50 text-slate-300 hover:text-cyan-300 border border-cyan-900/40 px-4 py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-sm">
+                        ما فضل قراءة سورة الكهف يوم الجمعة؟
+                    </button>
+                    <button class="q-btn bg-[#080e1a] hover:bg-cyan-950/50 text-slate-300 hover:text-cyan-300 border border-cyan-900/40 px-4 py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-sm">
+                        أذكار الصباح والمساء الصحيحة
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Answer Container -->
+        <div id="answerCard" class="w-full hidden transition-all duration-500">
+            <div class="w-full bg-[#080e1a] border border-cyan-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+                <div class="absolute top-0 right-0 w-2 h-full bg-gradient-to-b from-cyan-400 to-teal-400"></div>
+                <h4 class="text-cyan-400 font-bold text-lg mb-4 flex items-center gap-2.5">
+                    <i class="fa-solid fa-circle-check text-cyan-400"></i> الإجابة الشرعية:
+                </h4>
+                <div id="answerContent" class="text-slate-300 text-sm sm:text-base leading-relaxed space-y-3">
+                    <!-- Dynamic Output -->
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-6 text-center text-slate-500 text-xs border-t border-slate-900 mt-auto bg-[#04070e]">
+        designed & developed by aou_anno & 3laa
+    </footer>
+
+
+   
+<script>
+    // ==========================================
+    // GEMINI AI CONFIGURATION
+    // ==========================================
+
+    const GEMINI_API_KEY = "AQ.Ab8RN6IEdCxyKIkak8tAOfdKo3K4pE57o3SFzhOplLjyu8Ce8w";
+
+    const GEMINI_URL =
+    "https://generativelanguage.googleapis.com/v1beta/interactions";
+
+    const SYSTEM_PROMPT = `
+        أنت ORION، مساعد إسلامي ذكي.
+
+        مهمتك الإجابة عن الأسئلة الدينية باللغة العربية.
+
+        التعليمات:
+        1. أجب بوضوح وبأسلوب سهل ومفهوم.
+        2. اعتمد على القرآن الكريم والسنة النبوية الصحيحة.
+        3. اذكر اسم السورة ورقم الآية عند الاستشهاد.
+        4. اذكر مصدر الحديث ورقمه إذا كنت متأكداً.
+        5. لا تخترع آيات قرآنية أو أحاديث.
+        6. إذا لم تكن متأكداً من صحة حديث أو معلومة، وضح ذلك.
+        7. وضح الاختلاف بين آراء العلماء عند وجود خلاف معتبر.
+        8. لا تقدم الفتاوى المعقدة باعتبارها أحكاماً قطعية.
+        9. استخدم لغة عربية محترمة وسهلة.
+        10. اجعل الإجابات منظمة بعناوين وفقرات.
+        11. لا تدّعِ أنك بحثت في قاعدة بيانات إذا لم تفعل.
+    `;
+
+
+    // ==========================================
+    // QURAN VERSES
+    // ==========================================
+
+    const ayahs = [
+        {
+            text: "إِنَّ مَعَ الْعُسْرِ يُسْرًا",
+            ref: "[سورة الشرح: 6]",
+            audio: [
+                "https://everyayah.com/data/Alafasy_128kbps/094006.mp3"
+            ]
+        },
+        {
+            text: "وَقُل رَّبِّ زِدْنِي عِلْمًا",
+            ref: "[سورة طه: 114]",
+            audio: [
+                "https://everyayah.com/data/Alafasy_128kbps/020114.mp3"
+            ]
+        },
+        {
+            text: "فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ",
+            ref: "[سورة البقرة: 152]",
+            audio: [
+                "https://everyayah.com/data/Alafasy_128kbps/002152.mp3"
+            ]
+        },
+        {
+            text: "الَّذِينَ آمَنُوا وَتَطْمَئِنُّ قُلُوبُهُم بِذِكْرِ اللَّهِ ۗ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ",
+            ref: "[سورة الرعد: 28]",
+            audio: [
+                "https://everyayah.com/data/Alafasy_128kbps/013028.mp3"
+            ]
+        },
+        {
+            text: "وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ",
+            ref: "[سورة الطلاق: 2-3]",
+            audio: [
+                "https://everyayah.com/data/Alafasy_128kbps/065002.mp3",
+                "https://everyayah.com/data/Alafasy_128kbps/065003.mp3"
+            ]
+        }
+    ];
+
+
+    // ==========================================
+    // DOM ELEMENTS
+    // ==========================================
+
+    const quranText = document.getElementById('quranText');
+    const quranRef = document.getElementById('quranRef');
+
+    const playAudioBtn = document.getElementById('playAudioBtn');
+    const audioIcon = document.getElementById('audioIcon');
+    const audioStatus = document.getElementById('audioStatus');
+
+    const nextAyahBtn = document.getElementById('nextAyahBtn');
+
+    const searchForm = document.getElementById('searchForm');
+    const searchInput = document.getElementById('searchInput');
+
+    const submitBtn = document.getElementById('submitBtn');
+
+    const answerCard = document.getElementById('answerCard');
+    const answerContent = document.getElementById('answerContent');
+
+    const popularQuestions = document.querySelectorAll('.q-btn');
+
+
+    // ==========================================
+    // QURAN AUDIO SYSTEM
+    // ==========================================
+
+    let currentAyahIndex = 0;
+    let currentAudioPart = 0;
+
+    let audioElement = new Audio();
+
+    function changeAyah() {
+
+        currentAyahIndex =
+            (currentAyahIndex + 1) % ayahs.length;
+
+        quranText.style.opacity = '0';
+        quranRef.style.opacity = '0';
+
+        setTimeout(() => {
+
+            const item = ayahs[currentAyahIndex];
+
+            quranText.innerText = `"${item.text}"`;
+            quranRef.innerText = item.ref;
+
+            audioElement.pause();
+
+            currentAudioPart = 0;
+
+            audioElement.src = item.audio[0];
+
+            quranText.style.opacity = '1';
+            quranRef.style.opacity = '1';
+
+            audioIcon.className =
+                "fa-solid fa-volume-high text-amber-400";
+
+            audioStatus.innerText =
+                "استمع للآية بصوت الشيخ العفاسي";
+
+        }, 250);
+    }
+
+    nextAyahBtn.addEventListener('click', changeAyah);
+
+
+    playAudioBtn.addEventListener('click', () => {
+
+        if (audioElement.paused) {
+
+            audioElement.play().then(() => {
+
+                audioIcon.className =
+                    "fa-solid fa-pause text-amber-400";
+
+                audioStatus.innerText =
+                    "جاري تلاوة الآية...";
+
+            }).catch(error => {
+                console.error(error);
+                audioStatus.innerText = "تعذر تشغيل الصوت";
+            });
+
+        } else {
+
+            audioElement.pause();
+
+            audioIcon.className =
+                "fa-solid fa-volume-high text-amber-400";
+
+            audioStatus.innerText =
+                "استمع للآية بصوت الشيخ العفاسي";
+        }
+    });
+
+
+    audioElement.addEventListener('ended', () => {
+
+        const currentItem = ayahs[currentAyahIndex];
+
+        if (currentAudioPart + 1 < currentItem.audio.length) {
+
+            currentAudioPart++;
+
+            audioElement.src =
+                currentItem.audio[currentAudioPart];
+
+            audioElement.play();
+
+        } else {
+
+            currentAudioPart = 0;
+
+            audioElement.src = currentItem.audio[0];
+
+            audioIcon.className =
+                "fa-solid fa-volume-high text-amber-400";
+
+            audioStatus.innerText =
+                "استمع للآية بصوت الشيخ العفاسي";
+        }
+    });
+
+
+    audioElement.src = ayahs[0].audio[0];
+
+
+    // ==========================================
+    // GEMINI AI CHAT
+    // ==========================================
+
+    async function askGemini(question) {
+    const response = await fetch(GEMINI_URL, {
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json",
+            "x-goog-api-key": GEMINI_API_KEY
+        },
+
+        body: JSON.stringify({
+            model: "gemini-3.1-flash-lite",
+
+            system_instruction: SYSTEM_PROMPT,
+
+            input: question
+        })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            data.error?.message || "Gemini API request failed"
+        );
+    }
+
+    const answer = data.steps
+        ?.filter(step => step.type === "model_output")
+        .flatMap(step => step.content || [])
+        .filter(item => item.type === "text")
+        .map(item => item.text)
+        .join("\n")
+        .trim();
+
+    if (!answer) {
+        throw new Error("لم يتم العثور على إجابة.");
+    }
+
+    return answer;
+}
+
+
+    // ==========================================
+    // DISPLAY AI ANSWER
+    // ==========================================
+
+    function displayAnswer(answer) {
+
+        answerContent.innerHTML = "";
+
+        const paragraph = document.createElement("p");
+
+        paragraph.className =
+            "text-slate-200 leading-relaxed whitespace-pre-wrap";
+
+        paragraph.textContent = answer;
+
+        answerContent.appendChild(paragraph);
+    }
+
+
+    // ==========================================
+    // SEARCH FORM
+    // ==========================================
+
+    searchForm.addEventListener('submit', async (e) => {
+
+        e.preventDefault();
+
+        const query = searchInput.value.trim();
+
+        if (!query) return;
+
+        if (
+            !GEMINI_API_KEY ||
+            GEMINI_API_KEY === "VERY_SECRET_API_KEY"
+        ) {
+
+            answerCard.classList.remove('hidden');
+
+            answerContent.textContent =
+                "من فضلك أضف Gemini API Key أولاً.";
+
+            return;
+        }
+
+        submitBtn.disabled = true;
+
+        submitBtn.innerHTML =
+            `<i class="fa-solid fa-spinner animate-spin"></i>`;
+
+        answerCard.classList.remove('hidden');
+
+        answerContent.innerHTML = `
+            <p class="text-cyan-400 animate-pulse">
+                جاري التفكير والإجابة عن سؤالك...
+            </p>
+        `;
+
+        try {
+
+            const answer = await askGemini(query);
+
+            displayAnswer(answer);
+
+        } catch (error) {
+
+            console.error("Gemini Error:", error);
+
+            answerContent.textContent =
+                "حدث خطأ أثناء الاتصال بالذكاء الاصطناعي: " +
+                error.message;
+
+        } finally {
+
+            submitBtn.disabled = false;
+
+            submitBtn.innerHTML =
+                `<i class="fa-solid fa-arrow-up text-base"></i>`;
+        }
+    });
+
+
+    // ==========================================
+    // POPULAR QUESTIONS
+    // ==========================================
+
+    popularQuestions.forEach(btn => {
+
+        btn.addEventListener('click', () => {
+
+            searchInput.value = btn.innerText.trim();
+
+            searchForm.dispatchEvent(
+                new Event('submit', {
+                    cancelable: true
+                })
+            );
+        });
+    });
+
+</script>
+</body>
+</html>
+
+</body>
+</html>
